@@ -25,16 +25,16 @@ import scipy.interpolate as ip
 
 
 def main():
-    # sample_rate = sys.argv[1]
-    # target_dir = sys.argv[2]
-    # source_dirs = sys.argv[3:]
+    sample_rate = sys.argv[1]
+    target_dir = sys.argv[2]
+    source_dirs = sys.argv[3:]
 
     #source_dir = r'\\zserver.cortexlab.net\data\expInfo\Robbins\2017-06-13\1'
-    source_dirs = [r'\\zserver.cortexlab.net\Data\EyeCamera\Robbins\2017-06-13\1', \
-    	r'\\zserver.cortexlab.net\data\expInfo\Robbins\2017-06-13\1', \
-        r'\\zserver\Data\Subjects\Robbins\2017-06-13']
-    #target_dir = r'A:\Dropbox\Dropbox (Neuropixels)\Python\alf2neuroscope'
-    target_dir = '.'
+    # source_dirs = [r'\\zserver.cortexlab.net\Data\EyeCamera\Robbins\2017-06-13\1', \
+    # 	r'\\zserver.cortexlab.net\data\expInfo\Robbins\2017-06-13\1', \
+    #     r'\\zserver\Data\Subjects\Robbins\2017-06-13']
+    # #target_dir = r'A:\Dropbox\Dropbox (Neuropixels)\Python\alf2neuroscope'
+    # target_dir = '.'
     sample_rate = '1250'
 
 

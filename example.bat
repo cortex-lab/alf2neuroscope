@@ -1,0 +1,1 @@
+ipython alf2neuroscope.py 1250 \\basket.cortexlab.net\data\kenneth\ephys\Robbins\2017-06-13\test \\zserver.cortexlab.net\data\expInfo\Robbins\2017-06-13\1 \\zserver.cortexlab.net\Data\EyeCamera\Robbins\2017-06-13\1 \\zserver.cortexlab.net\Data\Subjects\Robbins\2017-06-13
