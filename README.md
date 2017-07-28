@@ -6,7 +6,7 @@ There is just one file: alf2neuroscope.py
 
 Use:
 
-`alf2neuroscope.py sample_rate destination_directory source_directory1 source_directory2 ...  `
+`alf2neuroscope.py sample_rate destination_directory source_directory1 source_directory2 ...`  
 Reads files in ALF (ALyx Format) and converts them so you can load them into neurosope.  
 Works recursively on all source directories, finding any `.npy` files within any subdirectories  
 Writes `neuroscope.dat`, `neuroscope.evt.evt`, `neuroscope.res.*`, `neuroscope.clu.*` to destination_directory
