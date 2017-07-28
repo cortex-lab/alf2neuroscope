@@ -33,7 +33,6 @@ def main():
     # source_dirs = [r'\\zserver.cortexlab.net\Data\EyeCamera\Robbins\2017-06-13\1', \
     # 	r'\\zserver.cortexlab.net\data\expInfo\Robbins\2017-06-13\1', \
     #     r'\\zserver\Data\Subjects\Robbins\2017-06-13']
-    # #target_dir = r'A:\Dropbox\Dropbox (Neuropixels)\Python\alf2neuroscope'
     # target_dir = '.'
     sample_rate = '1250'
 
@@ -55,26 +54,6 @@ def main():
     interval_files = [f for f in files if f[1][1] == 'intervals' and not f[1][0] == 'spikes']
     timestamp_files = [f for f in files if f[1][1] == 'timestamps']
      
-    ## SPIKE FILES
-    ri_file = open(os.path.join(target_dir, 'clu_file_list.txt'), 'w')
-    for n,f in enumerate(spike_files):
-
-        # load data        
-        times = np.load(f[0])
-        cluster_file = [c for c in files if c[2]==f[2] and c[1][:2]==['spikes','clusters']][0]
-        clusters = np.load(cluster_file[0])
-
-        # write data mapping
-        ri_file.write('neuroscope.clu.%d: %s' % (n, f[2]))
-        print('neuroscope.clu.%d: %s' % (n, f[2]))
-
-        # write spike files
-        np.savetxt(os.path.join(target_dir, 'neuroscope.res.'+ str(n) ), times/dt, '%d')
-        np.savetxt(os.path.join(target_dir, 'neuroscope.clu.'+ str(n) ), \
-            np.insert(clusters, 0, max(clusters)),'%d')
-
-    ri_file.close()
-
     # CONTINUOUS TIMESERIES 
     # first load each timestamps file and make list of interpolator functions
     interp_fn = []
@@ -95,7 +74,7 @@ def main():
     t = np.arange(0,max_t,dt) 
 
     ch_file = open(os.path.join(target_dir, 'dat_channel_list.txt'), 'w')
-    rescaled = [] # list to contain all rescaled, resampled files
+    all_chans = [] # list to contain all all_chans, resampled files
     c = 0 # to keep track of channel numbers
     for i,f in enumerate(timestamp_files):
         # load all the other files for this timestamp file
@@ -115,22 +94,42 @@ def main():
         my_t = interp_fn[i](t)
         my_t[np.isnan(my_t)] = 0 # overwrite out of bounds with first sample value
 
-        resampled = data[my_t.astype(int),:].astype(np.int16)
 
-        # now convert to unit 16, on a good scale
-        rescaled.append( ((resampled * (2.0**15))/(1+np.max(np.abs(resampled)))).astype('int16'))
-        #rescaled.append(resampled).astype('int16')
+        resampled = data[my_t.astype(int),:]
+        shifted = resampled - np.nanmedian(resampled,axis=0,keepdims=1)
+        scaled = (2.0**15)*shifted/(1e-20 + np.nanmax(np.abs(shifted),axis=0,keepdims=1))
 
+        # now convert to unit 16 and save
+        all_chans.append(scaled.astype('int16'))
+        
     ch_file.close()
 
     print('%d channels total' % c)
 
     # we have all the data on the same timescale. Append them and save
     out = open(os.path.join(target_dir, 'neuroscope.dat'), 'w')
-    np.concatenate(rescaled, axis=1).tofile(out)
+    np.concatenate(all_chans, axis=1).tofile(out)
     out.close();
 
+    ## SPIKE FILES
+    ri_file = open(os.path.join(target_dir, 'clu_file_list.txt'), 'w')
+    for n,f in enumerate(spike_files):
 
+        # load data        
+        times = np.load(f[0])
+        cluster_file = [c for c in files if c[2]==f[2] and c[1][:2]==['spikes','clusters']][0]
+        clusters = np.load(cluster_file[0])
+
+        # write data mapping
+        ri_file.write('neuroscope.clu.%d: %s' % (n, f[2]))
+        print('neuroscope.clu.%d: %s' % (n, f[2]))
+
+        # write spike files
+        np.savetxt(os.path.join(target_dir, 'neuroscope.res.'+ str(n) ), times/dt, '%d')
+        np.savetxt(os.path.join(target_dir, 'neuroscope.clu.'+ str(n) ), \
+            np.insert(clusters, 0, max(clusters)),'%d')
+
+    ri_file.close()
 
     # EVENT AND INTERVAL SERIES...
     # We first load them in, then sort, then output
