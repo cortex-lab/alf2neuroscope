@@ -5,13 +5,13 @@ Converts ALF files to be read in neuroscope
 Use:
 
 `alf2neuroscope.py sample_rate destination_directory source_directory1 source_directory2 ...`  
-Reads files in ALF (ALyx Format) and converts them so you can load them into [neurosope](http://neuroscope.sourceforge.net/UserManual/data-files.html).  
+Reads files in ALF (ALyx Files) and converts them so you can load them into [neurosope](http://neuroscope.sourceforge.net/UserManual/data-files.html).  
 Works recursively on all source directories, finding any `.npy` files within any subdirectories  
 Writes `neuroscope.dat`, `neuroscope.evt.evt`, `neuroscope.res.*`, `neuroscope.clu.*` to destination_directory
 
 # What is ALF? 
 
-ALF stands for "ALyx Format" but in fact it isn't so much a format as a format-neutral file-naming convention. 
+ALF stands for "ALyx Files". It isn't so much a format as a format-neutral file-naming convention. 
 
 In ALF, each filename has three parts, for example `spikes.times.npy` or `spikes.clusters.npy`. We will refer to these parts as the "object", the "attribute" and the "extension". The extension says what physical format the file is in - for now we only use .npy but you could use any format, for example plain text, video (e.g. .avi) or json .
 
