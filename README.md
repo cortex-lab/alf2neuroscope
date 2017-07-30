@@ -2,8 +2,6 @@
 
 Converts ALF files to be read in neuroscope
 
-There is just one file: alf2neuroscope.py
-
 Use:
 
 `alf2neuroscope.py sample_rate destination_directory source_directory1 source_directory2 ...`  
