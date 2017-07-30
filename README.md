@@ -23,11 +23,11 @@ ALF objects can represent anything. But three types of object are special:
 
 ## Event series
 
-If there is a file with attribute `times`, (i.e. filename `obj.times.ext`), it indicates that this object is an event series. The `times` file contains a numerical array containing times of the events in seconds, relative to a universal timescale common to all files. Other attributes of the events are stored in different files. If you want to represent times relative to another timescale, do this an extension name of the form `times_timescale`.
+If there is a file with attribute `times`, (i.e. filename `obj.times.ext`), it indicates that this object is an event series. The `times` file contains a numerical array containing times of the events in seconds, relative to a universal timescale common to all files. Other attributes of the events are stored in different files. If you want to represent times relative to another timescale, do this an attribute of the form `times_timescale`.
 
 ## Interval series
 
-If there is a file with attribute `intervals`, (i.e. filename `obj.intervals.ext`), it should have two columns, indicating the start and endpoints relative to the universal timescale. Again, other attributes of the events can be stored in different files, and other timescales can be represented by files with attribute `intervals_timescale`.
+If there is a file with attribute `intervals`, (i.e. filename `obj.intervals.ext`), it should have two columns, indicating the start and end times of each interval relative to the universal timescale. Again, other attributes of the events can be stored in different files, and other timescales can be represented by a file with attribute `intervals_timescale`.
 
 ## Continuous series
 
