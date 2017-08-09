@@ -39,8 +39,8 @@ Note that you don't have two data files with the same object and attribute: if y
 # File types
 ALF can deal with any sort of file, as long as it has a concept of a number of rows (or primary dimension). The type of file is recognized by its extension. Preferred choices:
 
-.npy: numpy array file. Datatype and shape is stored in the file. If you want to name the columns, use a metadata file. If you have an array of 3 or more dimensions, the first dimension counts as the number of rows.
+.npy: numpy array file. This is recommended over flat binary since datatype and shape is stored in the file. If you want to name the columns, use a metadata file. If you have an array of 3 or more dimensions, the first dimension counts as the number of rows.
 
-.tsv: tab-delimited text file. There should not be a header row: in ALF, all files have the same number of rows. If you want to name the rows, use a metadata file.
+.tsv: tab-delimited text file. This is recommended over comma-separated files since text fields often have commas in. There should not be a header row: in ALF, all files have the same number of rows. All rows should have the same number of columns. If you want to name the columns, use a metadata file.
 
-.bin: flat binary file. It's better to .npy for storing binary data but some recording systems save in flat binary. A flat binary file must have a metadata file, because otherwise you won't know how many columns there are. Also the metadata file should have a "dtype" entry saying what data type the file contains.
+.bin: flat binary file. It's better to .npy for storing binary data but some recording systems save in flat binary. Rather than convert them, you can ALFize a flat binary file by adding a metadata file, which specifies the number of columns (as the size of the "columns" array) and the binary datatype as a top-level key "dtype", using numpy naming conventions.
