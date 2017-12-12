@@ -21,7 +21,7 @@ ALF objects can represent anything. But three types of object are special:
 
 ## Event series
 
-If there is a file with attribute `times`, (i.e. filename `obj.times.ext`), it indicates that this object is an event series. The `times` file contains a numerical array containing times of the events in seconds, relative to a universal timescale common to all files. Other attributes of the events are stored in different files. If you want to represent times relative to another timescale, do this by appending to `timescale` after an underscore (e.g. `times_ephysClock`).
+If there is a file with attribute `times`, (i.e. filename `obj.times.ext`), it indicates that this object is an event series. The `times` file contains a numerical array containing times of the events in seconds, relative to a universal timescale common to all files. Other attributes of the events are stored in different files. If you want to represent times relative to another timescale, do this by appending to `timescale` after an underscore (e.g. `spikes.times_ephysClock.npy`).
 
 ## Interval series
 
@@ -43,7 +43,7 @@ ALF can deal with any sort of file, as long as it has a concept of a number of r
 
 .tsv: tab-delimited text file. This is recommended over comma-separated files since text fields often have commas in. All rows should have the same number of columns. There should not be a header row; if you want to name the columns, use a metadata file.
 
-.bin: flat binary file. It's better to .npy for storing binary data but some recording systems save in flat binary. Rather than convert them, you can ALFize a flat binary file by adding a metadata file, which specifies the number of columns (as the size of the "columns" array) and the binary datatype as a top-level key "dtype", using numpy naming conventions.
+.bin: flat binary file. It's better to use .npy for storing binary dat,a but some recording systems save in flat binary. Rather than convert them, you can ALFize a flat binary file by adding a metadata file, which specifies the number of columns (as the size of the "columns" array) and the binary datatype as a top-level key "dtype", using numpy naming conventions.
 
 # Unique file names
-An extension to ALF that will make archiving and backups easier would be to have each file have a unique filename. In this proposal, each file would have a four-part name: object.attribute.HASH.extension, where HASH is the md5 hash of the file. The filenames would be long. However the important part is in the first two parts, and users can tab-autocomplete when typing them at the command line; because the extension is last, they can also double-click the file to open it in a movie viewer (or whatever).
+A proposed extension to ALF that might make archiving and backups easier would be to have each file have a unique filename. In this proposal, each file would have a four-part name: object.attribute.HASH.extension, where HASH is the md5 hash of the file. The filenames would be long. However the important part is in the first two parts, and users can tab-autocomplete when typing them at the command line; because the extension is last, they can also double-click the file to open it with a default application such as a movie viewer.
