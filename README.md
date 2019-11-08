@@ -11,4 +11,4 @@ Writes `neuroscope.dat`, `neuroscope.evt.evt`, `neuroscope.res.*`, `neuroscope.c
 
 # What is ALF? 
 
-ALF is a file naming convention designed for neurophysiology data, described at https://github.com/cortex-lab/ALF
+ALF is a file naming convention designed for neurophysiology data, described [here](https://ibllib.readthedocs.io/en/latest/04_reference.html)
